@@ -36,7 +36,7 @@ for name, module in model.named_modules():
         print("Value weight matrix shape:", value_matrix.shape)
         break
 def tokenize_function(examples):
-  hate_speech_with_eos = examples['HATE_SPEECH']+tokenizer.eos_token
+  hate_speech_with_eos = examples['HATE_SPEECH']
   counter_speech_with_eos = examples['COUNTER_NARRATIVE']+tokenizer.eos_token
 
   # Concatenate the lists of strings element-wise
