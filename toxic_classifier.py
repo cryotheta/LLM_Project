@@ -46,13 +46,13 @@ dataloader = DataLoader(train_dataset, batch_size=16, shuffle=False)
 test_dataloader = DataLoader(test_dataset, batch_size=16, shuffle=False)
 TRAIN_LENGTH=len(dataloader)
 TEST_LENGTH=len(test_dataloader)
-# for idx, data in enumerate(dataloader):
-#     if idx%100==0:
-#         print(idx/len(dataloader))
-#     last_hidden_state=get_hidden_states(model, tokenizer, data['comment_text'])[-1]
-#     labels=data['toxic'].cpu().detach()
-#     torch.save(last_hidden_state.cpu().detach(),f'/home/hasan/AIL821/GPT_hidden_embeddings/tensor{idx}.pt')
-#     torch.save(labels,f'/home/hasan/AIL821/train_labels/tensor{idx}.pt')
+for idx, data in enumerate(dataloader):
+    if idx%100==0:
+        print(idx/len(dataloader))
+    last_hidden_state=get_hidden_states(model, tokenizer, data['comment_text'])[-1]
+    labels=data['toxic'].cpu().detach()
+    torch.save(last_hidden_state.cpu().detach(),f'/home/hasan/AIL821/GPT_hidden_embeddings/tensor{idx}.pt')
+    torch.save(labels,f'/home/hasan/AIL821/train_labels/tensor{idx}.pt')
 for idx, data in enumerate(test_dataloader):
     if idx%100==0:
         print(idx/len(test_dataloader))
