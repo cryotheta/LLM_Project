@@ -12,36 +12,38 @@ A mechanistic study of how GPT-2’s internal value vectors drive toxic text gen
 ---
 ## Overview of Alterantive Interpretation of Transformers
 
+## Decoder-Only Transformer Components
+
 A decoder-only transformer (such as GPT) has two major components: the **attention layer** and the **MLP layer**. The attention layer applies a linear transform to the inputs, while the MLP layer stores the bulk of the knowledge by learning non-linear relationships (Geva et al., 2022). Architectures like GPT use two-layer neural networks as the MLP layer. The first layer projects the input to a higher-dimensional space and the second layer projects it back to the original dimension of the residual stream. The resulting output is added to the residual stream, thus updating the distribution over tokens:
 
-$$
-\tilde{x} = \tilde{x} + \mathrm{MLP}(o) \tag{1}
-$$
+**Equation (1):**
+
+```
+~x = ~x + MLP(o)
+```
 
 Where:
 
-* \$\tilde{x}\$ is the residual stream.
-* \$o\$ is the output from the multi-head self-attention block.
+* `~x` is the residual stream.
+* `o` is the output from the multi-head self-attention block.
 
 As in (Lee et al., 2024), we view the final MLP layer of each transformer layer as **value vectors**, which are weighted by the inputs to the layer:
 
-$$
-[W_1, \ldots, W_{4096}]
-\begin{bmatrix}
-  o_1 \\
-  o_2 \\
-  \vdots \\
-  o_{4096}
-\end{bmatrix}
-= \sum_{i=1}^{4096} o_i W_i \tag{2}
-$$
+**Equation (2):**
+
+```
+[W1, ..., W4096] * [o1
+                  o2
+                  ...
+                  o4096]
+= sum(i=1 to 4096) oi * Wi
+```
 
 Where:
 
-* \$W\_i\$ are 1024-dimensional vectors spanning the column space of the second MLP weight matrix \$W: 4096 \to 1024\$.
+* `Wi` are 1024-dimensional vectors spanning the column space of the second MLP weight matrix `W: 4096 -> 1024`.
 
 Since a linear combination of these value vectors updates the residual stream, it is reasonable to hypothesise that these weight matrix column vectors encode the representations that might lead to toxicity or other behavioural patterns of the LLM.
-
 
 ## Key Findings & Observations
 
