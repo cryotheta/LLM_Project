@@ -14,9 +14,9 @@ A mechanistic study of how GPT-2’s internal value vectors drive toxic text gen
 
 A decoder-only transformer (such as GPT) has two major components: the **attention layer** and the **MLP layer**. The attention layer applies a linear transform to the inputs, while the MLP layer stores the bulk of the knowledge by learning non-linear relationships (Geva et al., 2022). Architectures like GPT use two-layer neural networks as the MLP layer. The first layer projects the input to a higher-dimensional space and the second layer projects it back to the original dimension of the residual stream. The resulting output is added to the residual stream, thus updating the distribution over tokens:
 
-```math
+$$
 \tilde{x} = \tilde{x} + \mathrm{MLP}(o) \tag{1}
-```
+$$
 
 Where:
 
@@ -25,7 +25,7 @@ Where:
 
 As in (Lee et al., 2024), we view the final MLP layer of each transformer layer as **value vectors**, which are weighted by the inputs to the layer:
 
-```math
+$$
 [W_1, \ldots, W_{4096}]
 \begin{bmatrix}
   o_1 \\
@@ -34,13 +34,14 @@ As in (Lee et al., 2024), we view the final MLP layer of each transformer layer 
   o_{4096}
 \end{bmatrix}
 = \sum_{i=1}^{4096} o_i W_i \tag{2}
-```
+$$
 
 Where:
 
 * \$W\_i\$ are 1024-dimensional vectors spanning the column space of the second MLP weight matrix \$W: 4096 \to 1024\$.
 
 Since a linear combination of these value vectors updates the residual stream, it is reasonable to hypothesise that these weight matrix column vectors encode the representations that might lead to toxicity or other behavioural patterns of the LLM.
+
 
 ## Key Findings & Observations
 
