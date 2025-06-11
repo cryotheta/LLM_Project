@@ -60,6 +60,7 @@ Since a linear combination of these value vectors updates the residual stream, i
    * **Hate-Fine-Tuned Model**: Mean activation of toxic vectors **increases by \~30%** on toxic-eliciting prompts.
    * **Counter-Speech Model**: Mean activation **drops by \~25%**, illustrating effective suppression of toxic subspace.
    * **Scratch Counter-Speech Model**: Shows **intermediate activations**, confirming fine-tuning dominance in shaping toxic behavior.
+![Alt text](figures/Results1.jpg)
 
 5. **Practical Implications**:
 
